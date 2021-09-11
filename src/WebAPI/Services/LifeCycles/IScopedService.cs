@@ -2,7 +2,7 @@
 
 namespace WebAPI.Services.LifeCycles
 {
-    public interface IScopedService
+    public interface IScopedService : IDisposable
     {
         Guid ServiceId { get; }
         string GetInstantiationDetails();
