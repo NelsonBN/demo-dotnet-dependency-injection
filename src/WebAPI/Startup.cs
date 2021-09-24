@@ -66,13 +66,13 @@ namespace WebAPI
             services.AddScoped<IrelandService>();
             services.AddScoped<Func<string, ICountryService>>(serviceProvider => countryCode =>
             {
-                switch(countryCode?.ToLower())
+                return (countryCode?.ToLower()) switch
                 {
-                    case "pt": return serviceProvider.GetService<PortugalService>();
-                    case "nl": return serviceProvider.GetService<NetherlandsService>();
-                    case "ie": return serviceProvider.GetService<IrelandService>();
-                    default: return null;
-                }
+                    "pt" => serviceProvider.GetService<PortugalService>(),
+                    "nl" => serviceProvider.GetService<NetherlandsService>(),
+                    "ie" => serviceProvider.GetService<IrelandService>(),
+                    _ => null,
+                };
             });
             #endregion
         }

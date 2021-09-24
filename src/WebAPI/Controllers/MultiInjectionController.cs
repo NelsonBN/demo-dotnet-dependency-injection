@@ -22,12 +22,9 @@ namespace WebAPI.Controllers
         {
             var service = this._countryService(countryCode);
 
-            if(service == null)
-            {
-                return this.NotFound("Country not found");
-            }
-
-            return this.Ok(service.GetCapital());
+            return service == null ?
+                this.NotFound("Country not found") :
+                this.Ok(service.GetCapital());
         }
     }
 }
