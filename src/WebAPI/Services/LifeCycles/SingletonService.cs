@@ -1,33 +1,30 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
 
-namespace WebAPI.Services.LifeCycles
+namespace WebAPI.Services.LifeCycles;
+
+public class SingletonService : ISingletonService
 {
-    public class SingletonService : ISingletonService
+    private static uint _instantiationCount;
+
+    private readonly ILogger<SingletonService> _logger;
+
+    public Guid ServiceId { get; private set; }
+
+    public SingletonService(ILogger<SingletonService> logger)
     {
-        private static uint _instantiationCount;
+        _logger = logger;
 
-        private readonly ILogger<SingletonService> _logger;
+        ServiceId = Guid.NewGuid();
+        _instantiationCount++;
+    }
 
-        public Guid ServiceId { get; private set; }
+    public string GetInstantiationDetails()
+        => $"{nameof(SingletonService)} > InstantiationCount: {_instantiationCount}, ServiceId: {ServiceId}";
 
-        public SingletonService(ILogger<SingletonService> logger)
-        {
-            this._logger = logger;
-
-            this.ServiceId = Guid.NewGuid();
-            _instantiationCount++;
-        }
-
-        public string GetInstantiationDetails()
-        {
-            return $"{nameof(SingletonService)} > InstantiationCount: {_instantiationCount}, ServiceId: {this.ServiceId}";
-        }
-
-        public void Dispose()
-        {
-            this._logger.LogInformation("Dispose");
-            GC.SuppressFinalize(this);
-        }
+    public void Dispose()
+    {
+        _logger.LogInformation("Dispose");
+        GC.SuppressFinalize(this);
     }
 }

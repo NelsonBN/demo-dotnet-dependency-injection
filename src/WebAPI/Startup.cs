@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,93 +11,85 @@ using WebAPI.Services.MultiInjections;
 using WebAPI.Services.PropertyInjections;
 using WebAPI.Services.ServiceLocators;
 
-namespace WebAPI
+namespace WebAPI;
+
+public class Startup
 {
-    public class Startup
+    public const string SWAGGER_ROUTE_PREFIX = "swagger";
+
+    public IConfiguration Configuration { get; }
+
+    public Startup(IConfiguration configuration)
+        => Configuration = configuration;
+
+
+    public void ConfigureServices(IServiceCollection services)
     {
-        public const string SWAGGER_ROUTE_PREFIX = "swagger";
+        services.AddControllers();
+        services.AddSwaggerGen(c
+            => c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" })
+        );
 
-        public IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration)
+        #region LIFE CYCLES
+        services.AddTransient<LifeCycleService>();
+
+        services.AddTransient<ITransientService, TransientService>();
+        services.AddScoped<IScopedService, ScopedService>();
+        services.AddSingleton<ISingletonService, SingletonService>();
+        services.AddSingleton<ISingletonInstanceService>(new SingletonInstanceService("Hellow world!!", DateTime.UtcNow));
+        #endregion
+
+
+        #region GENERIC INJECTIONS
+        services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
+        #endregion
+
+
+        #region PROPERTY INJECTIONS
+        services.AddScoped<IPropertyService, PropertyService>();
+        #endregion
+
+
+        #region SERVICE LOCATORS
+        services.AddScoped<ILocatorService, LocatorService>();
+        #endregion
+
+
+        #region MULTI INJECTIONS
+        services.AddScoped<PortugalService>();
+        services.AddScoped<NetherlandsService>();
+        services.AddScoped<IrelandService>();
+        services.AddScoped<Func<string, ICountryService>>(serviceProvider =>
+            countryCode => (countryCode?.ToLower()) switch
+            {
+                "pt" => serviceProvider.GetService<PortugalService>(),
+                "nl" => serviceProvider.GetService<NetherlandsService>(),
+                "ie" => serviceProvider.GetService<IrelandService>(),
+                _ => null,
+            });
+        #endregion
+    }
+
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if(env.IsDevelopment())
         {
-            this.Configuration = configuration;
+            app.UseDeveloperExceptionPage();
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
+        app.UseSwagger();
+        app.UseSwaggerUI(u =>
         {
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
-            });
+            u.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1");
+            u.RoutePrefix = SWAGGER_ROUTE_PREFIX;
+        });
 
+        app.UseRouting();
 
-            #region LIFE CYCLES
-            services.AddTransient<LifeCycleService>();
-
-            services.AddTransient<ITransientService, TransientService>();
-            services.AddScoped<IScopedService, ScopedService>();
-            services.AddSingleton<ISingletonService, SingletonService>();
-            services.AddSingleton<ISingletonInstanceService>(new SingletonInstanceService("Hellow world!!", DateTime.UtcNow));
-            #endregion
-
-
-            #region GENERIC INJECTIONS
-            services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
-            #endregion
-
-
-            #region PROPERTY INJECTIONS
-            services.AddScoped<IPropertyService, PropertyService>();
-            #endregion
-
-
-            #region SERVICE LOCATORS
-            services.AddScoped<ILocatorService, LocatorService>();
-            #endregion
-
-
-            #region MULTI INJECTIONS
-            services.AddScoped<PortugalService>();
-            services.AddScoped<NetherlandsService>();
-            services.AddScoped<IrelandService>();
-            services.AddScoped<Func<string, ICountryService>>(serviceProvider => countryCode =>
-            {
-                return (countryCode?.ToLower()) switch
-                {
-                    "pt" => serviceProvider.GetService<PortugalService>(),
-                    "nl" => serviceProvider.GetService<NetherlandsService>(),
-                    "ie" => serviceProvider.GetService<IrelandService>(),
-                    _ => null,
-                };
-            });
-            #endregion
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if(env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseSwagger();
-            app.UseSwaggerUI(u =>
-            {
-                u.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1");
-                u.RoutePrefix = SWAGGER_ROUTE_PREFIX;
-            });
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }
+        app.UseEndpoints(endpoints
+            => endpoints.MapControllers()
+        );
     }
 }

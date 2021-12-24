@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace WebAPI.Services.LifeCycles
+namespace WebAPI.Services.LifeCycles;
+
+public interface ISingletonService : IDisposable
 {
-    public interface ISingletonService : IDisposable
-    {
-        Guid ServiceId { get; }
-        string GetInstantiationDetails();
-    }
+    Guid ServiceId { get; }
+    string GetInstantiationDetails();
 }

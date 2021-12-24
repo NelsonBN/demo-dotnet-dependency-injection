@@ -1,10 +1,7 @@
-﻿namespace WebAPI.Services.Generics
+﻿namespace WebAPI.Services.Generics;
+
+public class GenericService<TSource> : IGenericService<TSource> where TSource : Transport
 {
-    public class GenericService<TSource> : IGenericService<TSource> where TSource : Transport
-    {
-        public string GetInstanceType(TSource source)
-        {
-            return source.TransportType;
-        }
-    }
+    public string GetInstanceType(TSource source)
+        => source.TransportType;
 }

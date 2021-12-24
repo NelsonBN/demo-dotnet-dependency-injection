@@ -1,10 +1,7 @@
-﻿namespace WebAPI.Services.MultiInjections
+﻿namespace WebAPI.Services.MultiInjections;
+
+public class NetherlandsService : ICountryService
 {
-    public class NetherlandsService : ICountryService
-    {
-        public string GetCapital()
-        {
-            return "Netherlands > Amsterdam";
-        }
-    }
+    public string GetCapital()
+        => "Netherlands > Amsterdam";
 }

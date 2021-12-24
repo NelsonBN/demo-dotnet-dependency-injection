@@ -1,10 +1,7 @@
-﻿namespace WebAPI.Services.Generics
+﻿namespace WebAPI.Services.Generics;
+
+public class Car : Transport
 {
-    public class Car : Transport
-    {
-        public Car()
-        {
-            this.TransportType = nameof(Car);
-        }
-    }
+    public Car()
+        => TransportType = nameof(Car);
 }

@@ -1,12 +1,9 @@
 ﻿using System;
 
-namespace WebAPI.Services.PropertyInjections
+namespace WebAPI.Services.PropertyInjections;
+
+public class PropertyService : IPropertyService
 {
-    public class PropertyService : IPropertyService
-    {
-        public DateTime GetDateTime()
-        {
-            return DateTime.UtcNow;
-        }
-    }
+    public DateTime GetDateTime()
+        => DateTime.UtcNow;
 }

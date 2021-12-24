@@ -1,7 +1,6 @@
-﻿namespace WebAPI.Services.Generics
+﻿namespace WebAPI.Services.Generics;
+
+public abstract class Transport
 {
-    public abstract class Transport
-    {
-        public string TransportType { get; protected set; }
-    }
+    public string TransportType { get; protected set; }
 }

@@ -1,7 +1,6 @@
-﻿namespace WebAPI.Services.ServiceLocators
+﻿namespace WebAPI.Services.ServiceLocators;
+
+public interface ILocatorService
 {
-    public interface ILocatorService
-    {
-        int GetRadom(int min, int max);
-    }
+    int GetRadom(int min, int max);
 }

@@ -1,7 +1,6 @@
-﻿namespace WebAPI.Services.MultiInjections
+﻿namespace WebAPI.Services.MultiInjections;
+
+public interface ICountryService
 {
-    public interface ICountryService
-    {
-        string GetCapital();
-    }
+    string GetCapital();
 }
