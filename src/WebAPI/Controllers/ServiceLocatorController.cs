@@ -18,7 +18,6 @@ public class ServiceLocatorController : ControllerBase
     [HttpGet("{min:int}/{max:int}")]
     public IActionResult Get(int min, int max)
     {
-
         var service = _serviceProvider.GetRequiredService<ILocatorService>();
         var value = service.GetRadom(min, max);
 

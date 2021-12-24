@@ -20,7 +20,7 @@ public class MultiInjectionController : ControllerBase
         var service = _countryService(countryCode);
 
         return service == null ?
-            this.NotFound("Country not found") :
-            this.Ok(service.GetCapital());
+            NotFound("Country not found") :
+            Ok(service.GetCapital());
     }
 }

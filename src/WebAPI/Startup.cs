@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using WebAPI.Services.Examples;
 using WebAPI.Services.Generics;
 using WebAPI.Services.LifeCycles;
 using WebAPI.Services.MultiInjections;
@@ -68,6 +69,11 @@ public class Startup
                 "ie" => serviceProvider.GetService<IrelandService>(),
                 _ => null,
             });
+        #endregion
+
+
+        # region OTHER EXAMPLES
+        services.AddScoped<IExampleService, ExampleService>();
         #endregion
     }
 
