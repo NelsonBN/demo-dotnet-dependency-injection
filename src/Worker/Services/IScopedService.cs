@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DemoWebAPI.Services.LifeCycles;
+namespace DemoWorker.Services;
 
 public interface IScopedService : IDisposable
 {

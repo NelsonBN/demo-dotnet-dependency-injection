@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using DemoWebAPI.Services.ServiceLocators;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using WebAPI.Services.ServiceLocators;
 
-namespace WebAPI.Controllers;
+namespace DemoWebAPI.Controllers;
 
 // Avoid using the service locator pattern
 [ApiController]

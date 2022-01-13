@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DemoWebAPI.Services.Examples;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using WebAPI.Services.Examples;
 
-namespace WebAPI.Controllers;
+namespace DemoWebAPI.Controllers;
 
 [ApiController]
 public abstract class ApiController : ControllerBase

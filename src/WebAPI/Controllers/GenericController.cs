@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebAPI.Services.Generics;
+﻿using DemoWebAPI.Services.Generics;
+using Microsoft.AspNetCore.Mvc;
 
-namespace WebAPI.Controllers;
+namespace DemoWebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]

@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using DemoWebAPI.Services.Examples;
+using DemoWebAPI.Services.Generics;
+using DemoWebAPI.Services.LifeCycles;
+using DemoWebAPI.Services.MultiInjections;
+using DemoWebAPI.Services.PropertyInjections;
+using DemoWebAPI.Services.ServiceLocators;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System;
-using WebAPI.Services.Examples;
-using WebAPI.Services.Generics;
-using WebAPI.Services.LifeCycles;
-using WebAPI.Services.MultiInjections;
-using WebAPI.Services.PropertyInjections;
-using WebAPI.Services.ServiceLocators;
 
-namespace WebAPI;
+namespace DemoWebAPI;
 
 public class Startup
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace WebAPI.Controllers;
+namespace DemoWebAPI.Controllers;
 
 [Route("[controller]")]
 public class RequestServicesController : ApiController

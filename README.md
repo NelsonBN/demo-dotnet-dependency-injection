@@ -33,7 +33,9 @@ Avoid using the service locator pattern.
 
 - [Official documentation](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-5.0)
 - [Service lifetimes](https://docs.microsoft.com/en-us/dotnet/core/extensions/dependency-injection#service-lifetimes)
+- [Dependency injection guidelines](https://docs.microsoft.com/en-us/dotnet/core/extensions/dependency-injection-guidelines)
 - [Benchmark performance](https://www.palmmedia.de/blog/2011/8/30/ioc-container-benchmark-performance-comparison)
+- [Scoped services with Worker Services](https://docs.microsoft.com/en-us/dotnet/core/extensions/scoped-service)
 
 
 

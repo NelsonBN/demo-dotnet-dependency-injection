@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebAPI.Services.Examples;
+namespace DemoWebAPI.Services.Examples;
 
 public interface IExampleService
 {

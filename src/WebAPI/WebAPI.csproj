@@ -3,6 +3,9 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+
+    <RootNamespace>DemoWebAPI</RootNamespace>
+    <AssemblyName>DemoWebAPI</AssemblyName>
   </PropertyGroup>
 
 

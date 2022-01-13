@@ -1,4 +1,4 @@
-﻿namespace WebAPI.Services.Generics;
+﻿namespace DemoWebAPI.Services.Generics;
 
 public interface IGenericService<TSource> where TSource : Transport
 {

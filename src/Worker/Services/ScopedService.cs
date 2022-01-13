@@ -1,17 +1,17 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
 
-namespace DemoWebAPI.Services.LifeCycles;
+namespace DemoWorker.Services;
 
-public class TransientService : ITransientService
+public class ScopedService : IScopedService
 {
     private static uint _instantiationCount;
 
-    private readonly ILogger<TransientService> _logger;
+    private readonly ILogger<ScopedService> _logger;
 
     public Guid ServiceId { get; private set; }
 
-    public TransientService(ILogger<TransientService> logger)
+    public ScopedService(ILogger<ScopedService> logger)
     {
         _logger = logger;
 
@@ -20,7 +20,7 @@ public class TransientService : ITransientService
     }
 
     public string GetInstantiationDetails()
-        => $"{nameof(TransientService)} > InstantiationCount: {_instantiationCount}, ServiceId: {ServiceId}";
+        => $"{nameof(ScopedService)} > InstantiationCount: {_instantiationCount}, ServiceId: {ServiceId}";
 
     public void Dispose()
     {

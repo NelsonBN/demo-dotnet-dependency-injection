@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using WebAPI.Services.MultiInjections;
+﻿using System;
+using DemoWebAPI.Services.MultiInjections;
+using Microsoft.AspNetCore.Mvc;
 
-namespace WebAPI.Controllers;
+namespace DemoWebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]

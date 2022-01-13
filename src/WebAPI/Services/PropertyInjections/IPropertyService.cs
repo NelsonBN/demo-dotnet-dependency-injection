@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebAPI.Services.PropertyInjections;
+namespace DemoWebAPI.Services.PropertyInjections;
 
 public interface IPropertyService
 {

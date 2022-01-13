@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebAPI.Services.LifeCycles;
+﻿using DemoWebAPI.Services.LifeCycles;
+using Microsoft.AspNetCore.Mvc;
 
-namespace WebAPI.Controllers;
+namespace DemoWebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]

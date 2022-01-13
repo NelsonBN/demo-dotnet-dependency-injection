@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebAPI.Services.LifeCycles;
+namespace DemoWebAPI.Services.LifeCycles;
 
 public interface ITransientService : IDisposable
 {

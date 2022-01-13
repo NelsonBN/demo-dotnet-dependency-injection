@@ -1,4 +1,4 @@
-﻿namespace WebAPI.Services.ServiceLocators;
+﻿namespace DemoWebAPI.Services.ServiceLocators;
 
 public interface ILocatorService
 {

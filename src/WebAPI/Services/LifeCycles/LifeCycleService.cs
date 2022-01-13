@@ -1,4 +1,4 @@
-﻿namespace WebAPI.Services.LifeCycles;
+﻿namespace DemoWebAPI.Services.LifeCycles;
 
 public class LifeCycleService
 {

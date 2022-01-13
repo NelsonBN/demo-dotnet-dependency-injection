@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebAPI.Services.ServiceLocators;
+namespace DemoWebAPI.Services.ServiceLocators;
 
 public class LocatorService : ILocatorService
 {
