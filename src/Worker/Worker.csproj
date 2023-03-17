@@ -1,12 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
 
     <RootNamespace>DemoWorker</RootNamespace>
     <AssemblyName>DemoWorker</AssemblyName>
-
-    <UserSecretsId>dotnet-src-7BE1CD8C-760B-4341-945F-A516615136FA</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
