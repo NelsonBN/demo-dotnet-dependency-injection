@@ -11,7 +11,9 @@ public class MultiInjectionController : ControllerBase
 {
     private readonly IEnumerable<IMultiInjection> _services;
 
-    public MultiInjectionController(IEnumerable<IMultiInjection> services) => _services = services;
+    public MultiInjectionController(IEnumerable<IMultiInjection> services)
+        => _services = services;
+
 
     [HttpGet]
     public IActionResult Get()
