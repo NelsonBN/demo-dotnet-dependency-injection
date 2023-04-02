@@ -2,6 +2,12 @@
 
 namespace DemoWebAPI.Services.LifeCycles;
 
+public interface ISingletonInstanceService
+{
+    Guid ServiceId { get; }
+    string GetInstantiationDetails();
+}
+
 public class SingletonInstanceService : ISingletonInstanceService
 {
     private static uint _instantiationCount;

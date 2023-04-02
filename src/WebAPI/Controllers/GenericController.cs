@@ -12,8 +12,7 @@ public class GenericController : ControllerBase
 
     public GenericController(
         IGenericService<Car> carService,
-        IGenericService<Motorcycle> motorcycleService
-    )
+        IGenericService<Motorcycle> motorcycleService)
     {
         _carService = carService;
         _motorcycleService = motorcycleService;

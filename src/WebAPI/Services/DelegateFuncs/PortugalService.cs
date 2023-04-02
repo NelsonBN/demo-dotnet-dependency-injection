@@ -1,4 +1,4 @@
-﻿namespace DemoWebAPI.Services.MultiInjections;
+﻿namespace DemoWebAPI.Services.DelegateFuncs;
 
 public class PortugalService : ICountryService
 {

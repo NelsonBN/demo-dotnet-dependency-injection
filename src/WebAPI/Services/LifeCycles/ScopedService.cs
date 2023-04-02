@@ -3,6 +3,12 @@ using Microsoft.Extensions.Logging;
 
 namespace DemoWebAPI.Services.LifeCycles;
 
+public interface IScopedService : IDisposable
+{
+    Guid ServiceId { get; }
+    string GetInstantiationDetails();
+}
+
 public class ScopedService : IScopedService
 {
     private static uint _instantiationCount;
@@ -22,9 +28,5 @@ public class ScopedService : IScopedService
     public string GetInstantiationDetails()
         => $"{nameof(ScopedService)} > InstantiationCount: {_instantiationCount}, ServiceId: {ServiceId}";
 
-    public void Dispose()
-    {
-        _logger.LogInformation("Dispose");
-        GC.SuppressFinalize(this);
-    }
+    public void Dispose() => _logger.LogInformation("Dispose");
 }

@@ -11,8 +11,7 @@ public class LifeCycleService
         ITransientService transientService,
         IScopedService scopedService,
         ISingletonService singletonService,
-        ISingletonInstanceService singletonInstanceService
-    )
+        ISingletonInstanceService singletonInstanceService)
     {
         _transientService = transientService;
         _scopedService = scopedService;
@@ -21,11 +20,10 @@ public class LifeCycleService
     }
 
     public string GetInstantiationDetails()
-        => $"\t{_transientService.GetInstantiationDetails()}" +
-           $"{System.Environment.NewLine}" +
-           $"\t{_scopedService.GetInstantiationDetails()}" +
-           $"{System.Environment.NewLine}" +
-           $"\t{_singletonService.GetInstantiationDetails()}" +
-           $"{System.Environment.NewLine}" +
-           $"\t{_singletonInstanceService.GetInstantiationDetails()}";
+        => $"""
+            {_transientService.GetInstantiationDetails()}
+                {_scopedService.GetInstantiationDetails()}
+                {_singletonService.GetInstantiationDetails()}
+                {_singletonInstanceService.GetInstantiationDetails()}
+            """;
 }

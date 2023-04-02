@@ -1,4 +1,5 @@
 ﻿using System;
+using DemoWebAPI.Services.DelegateFuncs;
 using DemoWebAPI.Services.Examples;
 using DemoWebAPI.Services.Generics;
 using DemoWebAPI.Services.LifeCycles;
@@ -6,10 +7,8 @@ using DemoWebAPI.Services.MultiInjections;
 using DemoWebAPI.Services.PropertyInjections;
 using DemoWebAPI.Services.ServiceLocators;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 namespace DemoWebAPI;
@@ -28,17 +27,33 @@ public class Startup
     {
         services.AddControllers();
         services.AddSwaggerGen(c
-            => c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" })
-        );
+            => c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" }));
+
+
+        #region MULTI INJECTIONS
+        services.AddScoped<PortugalService>()
+                .AddScoped<NetherlandsService>()
+                .AddScoped<IrelandService>()
+                .AddScoped<Func<string, ICountryService>>(sp =>
+                    countryCode => (countryCode?.ToLower()) switch
+                    {
+                        "pt" => sp.GetService<PortugalService>(),
+                        "nl" => sp.GetService<NetherlandsService>(),
+                        "ie" => sp.GetService<IrelandService>(),
+                        _ => null,
+                    });
+        #endregion
 
 
         #region LIFE CYCLES
         services.AddTransient<LifeCycleService>();
 
-        services.AddTransient<ITransientService, TransientService>();
-        services.AddScoped<IScopedService, ScopedService>();
-        services.AddSingleton<ISingletonService, SingletonService>();
-        services.AddSingleton<ISingletonInstanceService>(new SingletonInstanceService("Hellow world!!", DateTime.UtcNow));
+        services.AddTransient<ITransientService, TransientService>()
+                .AddScoped<IScopedService, ScopedService>()
+                .AddSingleton<ISingletonService, SingletonService>()
+                .AddSingleton<ISingletonInstanceService>(new SingletonInstanceService(
+                    "Hellow world!!",
+                    DateTime.UtcNow));
         #endregion
 
 
@@ -57,45 +72,31 @@ public class Startup
         #endregion
 
 
-        #region MULTI INJECTIONS
-        services.AddScoped<PortugalService>();
-        services.AddScoped<NetherlandsService>();
-        services.AddScoped<IrelandService>();
-        services.AddScoped<Func<string, ICountryService>>(serviceProvider =>
-            countryCode => (countryCode?.ToLower()) switch
-            {
-                "pt" => serviceProvider.GetService<PortugalService>(),
-                "nl" => serviceProvider.GetService<NetherlandsService>(),
-                "ie" => serviceProvider.GetService<IrelandService>(),
-                _ => null,
-            });
+        #region OTHER EXAMPLES
+        services.AddScoped<IExampleService, ExampleService>();
         #endregion
 
 
-        # region OTHER EXAMPLES
-        services.AddScoped<IExampleService, ExampleService>();
+        #region MULTI INJECTIONS
+        services.AddScoped<IMultiInjection, MultiInjectionAService>();
+        services.AddScoped<IMultiInjection, MultiInjectionBService>();
+        services.AddScoped<IMultiInjection, MultiInjectionCService>();
         #endregion
     }
 
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app)
     {
-        if(env.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-        }
+        app.UseDeveloperExceptionPage();
 
-        app.UseSwagger();
-        app.UseSwaggerUI(u =>
-        {
-            u.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1");
-            u.RoutePrefix = SWAGGER_ROUTE_PREFIX;
-        });
+        app.UseSwagger()
+           .UseSwaggerUI(u =>
+            {
+                u.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1");
+                u.RoutePrefix = SWAGGER_ROUTE_PREFIX;
+            });
 
-        app.UseRouting();
-
-        app.UseEndpoints(endpoints
-            => endpoints.MapControllers()
-        );
+        app.UseRouting()
+           .UseEndpoints(endpoints =>
+                endpoints.MapControllers());
     }
 }

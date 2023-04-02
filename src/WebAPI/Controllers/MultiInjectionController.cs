@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Text;
 using DemoWebAPI.Services.MultiInjections;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,19 +9,20 @@ namespace DemoWebAPI.Controllers;
 [Route("[controller]")]
 public class MultiInjectionController : ControllerBase
 {
-    private readonly Func<string, ICountryService> _countryService;
+    private readonly IEnumerable<IMultiInjection> _services;
 
-    public MultiInjectionController(
-        Func<string, ICountryService> countryService
-    ) => _countryService = countryService;
+    public MultiInjectionController(IEnumerable<IMultiInjection> services) => _services = services;
 
-    [HttpGet("{countryCode}")]
-    public IActionResult Get(string countryCode)
+    [HttpGet]
+    public IActionResult Get()
     {
-        var service = _countryService(countryCode);
+        var sb = new StringBuilder();
 
-        return service == null ?
-            NotFound("Country not found") :
-            Ok(service.GetCapital());
+        foreach(var service in _services)
+        {
+            sb.AppendLine(service.GetServiceName());
+        }
+
+        return Ok(sb.ToString());
     }
 }

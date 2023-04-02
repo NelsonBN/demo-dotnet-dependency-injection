@@ -2,6 +2,11 @@
 
 namespace DemoWebAPI.Services.ServiceLocators;
 
+public interface ILocatorService
+{
+    int GetRadom(int min, int max);
+}
+
 public class LocatorService : ILocatorService
 {
     public int GetRadom(int min, int max)

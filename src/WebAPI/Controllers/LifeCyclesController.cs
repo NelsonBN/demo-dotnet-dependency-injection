@@ -14,8 +14,7 @@ public class LifeCyclesController : ControllerBase
 
     public LifeCyclesController(
         LifeCycleService service1,
-        LifeCycleService service2
-    )
+        LifeCycleService service2)
     {
         _service1 = service1;
         _service2 = service2;
@@ -25,17 +24,13 @@ public class LifeCyclesController : ControllerBase
 
     [HttpGet]
     public IActionResult Get()
-        => Ok(
-            $"Request number: {_requestCount}" +
+        => Ok($"""
+            Request number: {_requestCount}
 
-            $"{System.Environment.NewLine}" +
-            $"{System.Environment.NewLine}" +
+            Service1:
+                {_service1.GetInstantiationDetails()}
 
-            $"Service1: {System.Environment.NewLine}{_service1.GetInstantiationDetails()}" +
-
-            $"{System.Environment.NewLine}" +
-            $"{System.Environment.NewLine}" +
-
-            $"Service2: {System.Environment.NewLine}{_service2.GetInstantiationDetails()}"
-        );
+            Service2:
+                {_service2.GetInstantiationDetails()}
+            """);
 }

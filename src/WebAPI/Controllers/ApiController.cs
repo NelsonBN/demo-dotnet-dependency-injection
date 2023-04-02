@@ -8,8 +8,8 @@ namespace DemoWebAPI.Controllers;
 public abstract class ApiController : ControllerBase
 {
     private IExampleService _service;
-
     protected IExampleService Service
-            => _service ??= HttpContext.RequestServices
-                    .GetService<IExampleService>();
+        => _service ??= HttpContext
+            .RequestServices
+            .GetService<IExampleService>();
 }
