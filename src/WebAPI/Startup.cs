@@ -1,4 +1,5 @@
 ﻿using System;
+using DemoWebAPI.Services.DelegateFunc;
 using DemoWebAPI.Services.DelegateFuncs;
 using DemoWebAPI.Services.Examples;
 using DemoWebAPI.Services.Generics;
@@ -42,6 +43,8 @@ public class Startup
                         "ie" => sp.GetService<IrelandService>(),
                         _ => null,
                     });
+
+        services.AddTransient<SumFunc>(s => FuncUtils.SumFunc);
         #endregion
 
 
